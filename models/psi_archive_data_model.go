@@ -5,8 +5,9 @@ import "gorm.io/gorm"
 type PSIRollupTableArchiveSchema struct {
     RecordID             uint    `gorm:"primaryKey;autoIncrement" json:"record_id"`
     Region               string  `gorm:"not null" json:"region"`
-    CreatedDate          string  `gorm:"not null" json:"created_date"`
+    CreatedDate          string  `gorm:"not null;column:createdDate" json:"createdDate"`
     Timestamp            int     `gorm:"not null;index" json:"timestamp"`
+    UpdatedTimestamp     int     `gorm:"not null;" json:"updatedTimestamp"`
     CoSubIndex           float64 `gorm:"not null;default:0" json:"co_sub_index"`
     So2TwentyFourHourly  float64 `gorm:"not null;default:0" json:"so2_twenty_four_hourly"`
     So2SubIndex          float64 `gorm:"not null;default:0" json:"so2_sub_index"`
