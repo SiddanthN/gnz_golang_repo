@@ -12,7 +12,7 @@ import (
 type PSIHourlyDataLatest struct {
     RecordID             uint   `gorm:"primaryKey;autoIncrement" json:"record_id"`
     Region               string `gorm:"not null" json:"region"`
-    CreatedDate          string `gorm:"not null" json:"__date"`
+    CreatedDate          string `gorm:"not null" json:"created_date"`
     Timestamp            int    `gorm:"not null;index" json:"timestamp"`
     UpdatedTimestamp     int    `gorm:"not null;default:0" json:"updated_timestamp"`
     CoSubIndex           int    `gorm:"not null;default:0" json:"co_sub_index"`
@@ -36,9 +36,9 @@ func CreatePSIDataRecord(db *gorm.DB, psiData *PSIHourlyDataLatest) error {
 
 }
 
-func GetHourlyPSIData(db *gorm.DB, dateTimeValue string) (*PSIHourlyDataLatest, error) {
+func GetHourlyPSIData(db *gorm.DB, dateTimeValue string) ([]PSIHourlyDataLatest, error) {
 
-    var dataRecord PSIHourlyDataLatest
+    var dataRecord []PSIHourlyDataLatest
 
     dateTime, err := time.Parse("2006-01-02 15:04:05", dateTimeValue)
 
@@ -48,7 +48,7 @@ func GetHourlyPSIData(db *gorm.DB, dateTimeValue string) (*PSIHourlyDataLatest, 
 
     timestamp := dateTime.Truncate(time.Hour).Unix()
 
-    return &dataRecord, db.Where("timestamp = ?", timestamp).Find(&dataRecord).Error
+    return dataRecord, db.Where("timestamp = ?", timestamp).Find(dataRecord).Error
 
 }
 

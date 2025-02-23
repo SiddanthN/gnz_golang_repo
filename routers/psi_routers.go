@@ -5,13 +5,20 @@ import (
     "gnz_psi/go_web_service/controllers"
 )
 
-// RegisterUserRoutes defines user-related routes
-func PSIDataRoutes(router *gin.Engine) {
+// PSIDataRouter defines PSI Data related routes
+func PSIDataRouter(router *gin.Engine) {
 
-    userGroup := router.Group("/psi")
+    PSIRouteGroup := router.Group("/gnz/api")
     {
-        userGroup.GET("/", controllers.GetUserHandler)
-        userGroup.POST("/", controllers.CreateUserHandler)
+        apiVersion := PSIRouteGroup.Group("/v1")
+        {
+            action := apiVersion.Group("/psi")
+            {
+                action.GET("", controllers.GetPSIData)       // GET /gnz/api/v1/psi
+                action.POST("", controllers.CreateUserHandler) // POST /gnz/api/v1/psi
+            }
+
+        }
     }
 
 }

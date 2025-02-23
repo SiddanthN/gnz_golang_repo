@@ -1,42 +1,32 @@
 package models
 
-// import (
-//     "gorm.io/gorm"
-// )
+import (
+    "gorm.io/gorm"
+)
 
-// // PSIRegionSchema defines the PSI model
-// type PSIRegionSchema struct {
+// PSIRegionSchema defines the PSI model
+type PSIRegion struct {
 
-//     LocationID uint `gorm:"primaryKey;autoIncrement" json:"location_id"`
-//     Name string `gorm:"unique;not null" json:"name"`
-//     Longitude float64 `gorm:"not null;default:0" json:"longitude"`
-//     Latitude float64 `gorm:"not null;default:0" json:"latitude"`
+    RegionID uint `gorm:"primaryKey;autoIncrement" json:"region_id"`
+    Name string `gorm:"unique;not null" json:"name"`
+    Longitude float64 `gorm:"not null;default:0" json:"longitude"`
+    Latitude float64 `gorm:"not null;default:0" json:"latitude"`
 
-// }
+}
 
-// // CreatePSIRegion inserts a new user into the database
-// func CreatePSIRegion(db *gorm.DB, region *PSIRegionSchema) error {
+// CreatePSIRegion inserts a new user into the database
+func CreatePSIRegion(db *gorm.DB, region *PSIRegion) error {
 
-//     return db.Create(region).Error
+    return db.Create(region).Error
 
-// }
+}
 
-// // // GetPSIRegion retrieves a user by their ID
-// // func GetPSIRegion(db *gorm.DB, id uint) (*PSIRegionSchema, error) {
+// GetAllRegions retrieves all regions
+func GetAllRegions(db *gorm.DB) ([]PSIRegion, error) {
 
-// //     var region PSIRegionSchema
+    var regions []PSIRegion
 
-// //     err := db.First(&region, id).Error
-// //     return &region, err
+    err := db.Find(&regions).Error
+    return regions, err
 
-// // }
-
-// // GetAllUsers retrieves all users
-// func GetAllUsers(db *gorm.DB) ([]PSIRegionSchema, error) {
-
-//     var regions []PSIRegionSchema
-
-//     err := db.Find(&regions).Error
-//     return regions, err
-
-// }
+}

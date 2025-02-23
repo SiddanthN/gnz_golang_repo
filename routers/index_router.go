@@ -14,7 +14,7 @@ func SetupRouter() *gin.Engine {
 	router.Use(middlewares.LoggingMiddleware())
 
     // Lisitng down all the group routers
-    UserRoutes(router)
+    PSIDataRouter(router)
 	
     return router
 
